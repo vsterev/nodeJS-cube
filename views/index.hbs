@@ -1,0 +1,13 @@
+<h1>Browser</h1>
+<form action="/" method="POST">
+  <input type="text" class="name" name="name" placeholder="Search...">
+  <input type="number" name="from" class="difficulty" placeholder="Difficulty from...">
+  <span>-</span>
+  <input type="number" name="to" class="difficulty" placeholder="Difficulty to...">
+  <input type="submit" value="search">
+</form>
+{{#each cubes}}
+{{> cube}}
+{{else}}
+<span class="error">No cubs are found!</span>
+{{/each}}
