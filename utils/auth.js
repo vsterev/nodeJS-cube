@@ -18,7 +18,7 @@ function auth(redirectUnauthenticated = true) {
             userModel.findById(data.userID)
                 .then(user => {
                     // req.token = token;
-                    req.user = user.username;
+                    req.user = user;
                     next();
                 })
         }).catch(err => {
@@ -29,10 +29,11 @@ function auth(redirectUnauthenticated = true) {
             if ([
                 'token expired',
                 'blacklisted token',
-                'jwt must be provided'
+                'jwt must be provided',
+                'jwt malformed'
             ].includes(err.message)
             ) {
-                res.redirect('/login')
+                res.redirect('/login?redirected')
                 return;
             }
             next(err)
