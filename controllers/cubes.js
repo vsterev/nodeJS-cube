@@ -1,13 +1,15 @@
 const { cubeModel, accessoryModel } = require('../models')
 function getIndex(req, res, next) {
+    const user = req.user;
     cubeModel.find()
         .then(cubes => {
-            res.render('index.hbs', { title: 'Cubes | Home page', cubes })
+            res.render('index.hbs', { title: 'Cubes | Home page', cubes, user })
         })
         .catch(err => console.log(err))
 }
 function postIndex(req, res, next) {
     const { name, from, to } = req.body;
+    const user = req.user;
     let criteria = {}
     if (name) {
         criteria = { ...criteria, name: { $regex: name, $options: 'i' } }
@@ -20,11 +22,12 @@ function postIndex(req, res, next) {
     }
     cubeModel.find(criteria)
         .then(cubes => {
-            res.render('index.hbs', { title: 'Cubes | Filter page', cubes })
+            res.render('index.hbs', { title: 'Cubes | Filter page', cubes, name, from, to, user })
         }).catch(err => console.log(err))
 }
 function getCreate(req, res, next) {
-    res.render('create.hbs', { title: 'Create Cube | Cube Workshop' })
+    const user = req.user;
+    res.render('create.hbs', { title: 'Create Cube | Cube Workshop', user })
 }
 function postCreate(req, res, next) {
     const { name = null, description = null, imageUrl = null, difficulty = null } = req.body;
@@ -36,13 +39,14 @@ function postCreate(req, res, next) {
         .catch(err => console.log(err))
 }
 function about(req, res, next) {
-    res.render('about.hbs', { title: 'Cube | About page' })
+    const user = req.user;
+    res.render('about.hbs', { title: 'Cube | About page', user })
 }
 function getDetails(req, res, next) {
     const id = req.params.id;
     cubeModel.findById(id).populate('accessories')
         .then(cube => res.render('details.hbs', { title: 'Cube details', cube }))
-        .catch(err => res.render('404.hbs',{msg:err}))
+        .catch(err => res.render('404.hbs', { msg: err }))
 }
 function getAttachAccessories(req, res, next) {
     const id = req.params.id;
