@@ -6,6 +6,10 @@ dbConnect()
     .then(() => {
         require('./config/express')(app);
         app.use('/', routes)
+        app.use(function (err, req, res, next) { //global error handling
+            console.error(err);
+            res.render('500', { errorMessage: err.message })
+        })
         app.listen(config.port, console.log(`Listening on port ${config.port}! Now its up to you...`));
     })
     .catch(err => {

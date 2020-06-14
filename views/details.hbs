@@ -5,6 +5,10 @@
     <p><span>Difficulty level:</span>{{cube.difficulty}}</p>
     <a class="btn" href="/">Back</a>
     <a class="btn" href="/attach/accessories/{{cube.id}}">Attach accessory</a>
+    {{#if cube.toEdit}}
+    <a class="btn" href="/edit/{{cube.id}}">Edit cube</a>
+    <a class="btn" href="/delete/{{cube.id}}">Delete cube</a>
+    {{/if}}
 </div>
 {{#if cube.accessories}}
 <h2>Accessories</h2>

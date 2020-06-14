@@ -32,7 +32,7 @@ header {
     list-style-type: none;
     margin: auto;
     padding: 0;
-    background-color: #607588;
+    background-color: #6c8aa7;
 }
 
 header ul li {
@@ -46,6 +46,13 @@ header ul li a {
     color: white;
     font-weight: bold;
     margin: 0 1em;
+}
+header div {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    margin: 0 3em;
 }
 
 header ul li a:hover {
@@ -105,10 +112,18 @@ button, main a.btn {
     color: white;
 }
 
+.details a.btn{
+    width: 28%;
+}
+
 button:hover {
     background-color: #0B2133;
     color: white;
     cursor: pointer;
+}
+
+a.btn:hover{
+    text-decoration: underline;
 }
 
 a {
@@ -157,6 +172,7 @@ form label {
 
 input[type=text],
 input[type=number],
+input[type=password],
 select,
 textarea {
     width: 100%;
@@ -252,7 +268,6 @@ footer {
 
 /*Animations & Transitions
 */
-
 
 @-webkit-keyframes fadeOut {
     from {
