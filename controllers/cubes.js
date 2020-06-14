@@ -57,11 +57,11 @@ function getDetails(req, res, next) {
         .catch(err => res.render('404.hbs', { msg: err }))
 }
 function getAttachAccessories(req, res, next) {
-    const id = req.params.id;
+    const cubeID = req.params.id;
     const user = req.user;
-    cubeModel.findById(id)
+    cubeModel.findById(cubeID)
         .then(async (cube) => {
-            const accessories = await accessoryModel.find({ cubes: { $nin: id } })
+            const accessories = await accessoryModel.find({ cubes: { $nin: cubeID } })
             // accessoryModel.find({})
             //     .then(accessories => {
             //         res.render('attachAccessory.hbs', { cube, accessories })

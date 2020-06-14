@@ -8,7 +8,7 @@ function postCreateAccessory(req, res, next) {
 
     accessoryModel.create({ name, description, imageUrl, cubes })
         .then(a => {
-            console.log('New Accessory is addes => ' + a);
+            console.log('New Accessory is added => ' + a);
             res.redirect('/accessories');
         })
         .catch(err => console.log(err))
