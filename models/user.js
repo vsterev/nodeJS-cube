@@ -8,21 +8,16 @@ userSchema.methods = {
     matchPassword: function (password) {
         return bcrypt.compare(password, this.password) //password verification in model
     }
+    // hashPassword: function (password) {
+    //     bcrypt.genSalt(9)
+    //         .then((salt) => {
+    //             bcrypt.hash(password, salt)
+    //         })
+    //         .catch(err1 => console.log(err1))
+    // }
 }
 userSchema.pre('save', function (next) { //hash when saving password
     if (this.isModified('password')) {
-
-        // bcrypt.genSalt(9)
-        //     .then(salt => {
-        //         bcrypt.hash(this.password, salt)
-        //             .then(hash => {
-        //                 this.password = hash;
-        //                 next()
-        //             })
-        //             .catch(err => console.log(err))
-        //     })
-        //     .catch(err => console.log(err))
-
         const saltGenerate = bcrypt.genSalt(9)
         saltGenerate
             .then(salt => {
@@ -35,15 +30,24 @@ userSchema.pre('save', function (next) { //hash when saving password
                     .catch(err => next(err))
             })
             .catch(err => next(err))
-
-        // bcrypt.genSalt(10, (err, salt) => {
-        //     if (err) { next(err); return }
-        //     bcrypt.hash(this.password, salt, (err, hash) => {
-        //         if (err) { next(err); return }
-        //         this.password = hash;
-        //         next();
-        // })
-        // })
+        return;
+    }
+    next();
+})
+userSchema.pre('findOneAndUpdate', function (next) {
+    if (this._update['password']) {
+        const saltGenerate = bcrypt.genSalt(9)
+        saltGenerate
+            .then(salt => {
+                const hash = bcrypt.hash(this._update['password'], salt)
+                Promise.all([salt, hash])
+                    .then(([salt, hash]) => {
+                        this._update['password'] = hash;
+                        next();
+                    })
+                    .catch(err => next(err))
+            })
+            .catch(err => next(err))
         return;
     }
     next();

@@ -25,6 +25,8 @@ router.get('/edit/:id', auth(), cubeController.edit)
 router.post('/edit/:id', auth(), cubeController.editPost)
 router.get('/delete/:id', auth(), cubeController.remove)
 router.post('/delete/:id', auth(), cubeController.removePost)
+router.get('/passchange/', auth(), authController.getPassChange)
+router.post('/passchange/', auth(), authController.postPassChange)
 router.all('*', cubeController.notFound)
 
 module.exports = router
