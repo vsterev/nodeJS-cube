@@ -17,7 +17,6 @@ function auth(redirectUnauthenticated = true) {
             }
             userModel.findById(data.userID)
                 .then(user => {
-                    // req.token = token;
                     req.user = user;
                     next();
                 })
@@ -33,7 +32,7 @@ function auth(redirectUnauthenticated = true) {
                 'jwt malformed'
             ].includes(err.message)
             ) {
-                res.redirect('/login?redirected')
+                res.redirect('/login?error')
                 return;
             }
             next(err)

@@ -11,6 +11,13 @@
 <body>
     <div class="container">
         {{> header}}
+        {{#each errors}}
+        <div id="notifications">
+            <p id="notification-message">
+                {{this}}
+            </p>
+        </div>
+        {{/each}}
         <main>
             {{{body}}}
         </main>
