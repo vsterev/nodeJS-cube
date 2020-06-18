@@ -1,4 +1,4 @@
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
 const DB_PASS = process.env.DB_PASS;
 const DB_USER = process.env.DB_USER;
 const config = {
@@ -8,7 +8,7 @@ const config = {
     },
     production: {
         port: 4000,
-        dataBaseUrl: 'mongodb://127.0.0.1:27017'
+        dataBaseUrl: 'mongodb://127.0.0.1:27017/cubes'
     }
 };
 module.exports = config[env];
